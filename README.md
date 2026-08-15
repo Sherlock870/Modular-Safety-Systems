@@ -50,7 +50,8 @@ assets/             App icons and splash
 ### Run locally
 
 ```bash
-cd ~/Documents/Modular-Safety-Systems
+git clone https://github.com/Sherlock870/Modular-Safety-Systems.git
+cd Modular-Safety-Systems
 npm install
 npx expo start
 ```
