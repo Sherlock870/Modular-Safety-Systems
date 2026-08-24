@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { MapPin, TriangleAlert } from "lucide-react-native";
 import { Screen } from "@/components/Screen";
 import { copy } from "@/constants/copy";
-import { colors, fontSize, radius, spacing } from "@/constants/theme";
+import { alertColors as colors, fontSize, radius, spacing } from "@/constants/theme";
 import { useApp } from "@/context/AppContext";
 
 export default function AlertScreen() {
@@ -18,7 +18,7 @@ export default function AlertScreen() {
   } = useApp();
 
   const isActive = alertState === "active";
-  const backgroundColor = isActive ? colors.alertActiveBg : colors.alertPendingBg;
+  const backgroundColor = isActive ? colors.activeBg : colors.pendingBg;
 
   return (
     <Screen backgroundColor={backgroundColor}>
@@ -77,7 +77,9 @@ export default function AlertScreen() {
               {contacts.map((contact) => (
                 <View key={contact.id} style={styles.contactRow}>
                   <Text style={styles.contactName}>{contact.name}</Text>
-                  <Text style={styles.contactStatus}>{copy.wouldNotify}</Text>
+                  <Text style={styles.contactStatus}>
+                    {contact.guardianAccess ? copy.wouldNotifyGuardian : copy.wouldNotify}
+                  </Text>
                 </View>
               ))}
             </View>
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
   },
   reason: {
     fontSize: fontSize.base,
-    color: colors.alertText,
+    color: colors.text,
     marginBottom: spacing.xs,
   },
   title: {
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
   },
   body: {
     fontSize: 12.5,
-    color: colors.alertTextMuted,
+    color: colors.textMuted,
     textAlign: "center",
     lineHeight: 20,
     marginBottom: spacing.xxl,
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
   },
   locationValue: {
     fontSize: fontSize.base,
-    color: colors.text,
+    color: colors.textOnSurface,
   },
   contactList: {
     width: "100%",
@@ -203,7 +205,7 @@ const styles = StyleSheet.create({
   },
   contactName: {
     fontSize: 12.5,
-    color: colors.text,
+    color: colors.textOnSurface,
   },
   contactStatus: {
     fontSize: fontSize.sm,
